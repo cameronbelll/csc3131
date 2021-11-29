@@ -41,7 +41,7 @@ const Post = ({post, setCurrentId}) => //creates the form for adding new tickets
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" onClick={() => dispatch (likePost(post._id))}>
                     <ThumbUpAltIcon fontSize="small" />
-                    Like
+                    &nbsp; Like &nbsp;
                     {post.likeCount}
                 </Button>
 

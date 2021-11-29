@@ -1,6 +1,6 @@
 import {makeStyles } from "@material-ui/core/styles";
 
-export default makeStyles(() => ({ //shows all the parts of the styles for any post on the site
+export default makeStyles((theme) => ({ //shows all the parts of the styles for any post on the site
     appBar: {
         borderRadius: 100,
         margin: '30px 0',
@@ -17,4 +17,10 @@ export default makeStyles(() => ({ //shows all the parts of the styles for any p
       image: {
         marginLeft: '15px',
       },
+      [theme.breakpoints.down('sm')]: {
+        mainContainer: {
+          flexDirection: "column-reverse",
+        }
+      }
+
 }));
