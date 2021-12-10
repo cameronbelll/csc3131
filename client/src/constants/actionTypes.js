@@ -5,5 +5,6 @@ export const DELETE = 'DELETE';
 export const FETCH_ALL = 'FETCH_ALL';
 
 //for authentication
+export const PROFILE = 'profile';
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';

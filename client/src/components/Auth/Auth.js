@@ -7,20 +7,32 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
+import {AUTH} from '../../constants/actionTypes';
+import {signIn, signUp} from '../../actions/auth';
+
+const initialState = {firstName: '', surname: '', email: '', password: '', confirmPassword: ''}; //sets all variables to be empty initially
 
 const Auth = () => {
     const classes = useStyles();
     const [isSignedUp, setIsSignedUp] = useState(false); //state field which is used to flip the state of a boolean variable
     const [showPassword, setShowPassword] = useState(false); // password initially hidden
+    const [formData, setFormData] = useState();
     const dispatch = useDispatch(); //hooks must be declared like this
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault(); //prevents the browser from refreshing
 
+        if(isSignedUp) {
+            dispatch(signUp(formData, navigate)); //pass navigate so can move when something changes
+        }
+        else {
+            dispatch(signIn(formData, navigate));
+        }
     };
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value}); //sets the values in the text fields to the variables
     };
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword ); 
@@ -28,7 +40,7 @@ const Auth = () => {
 
     const switchMode = () => {
         setIsSignedUp((prevIsSignedUp) => !prevIsSignedUp);
-        handleShowPassword(false); //must ensure password stays hidden
+        setShowPassword(false); //must ensure password stays hidden
     }
 
     const googleSuccess = async (res) => {
@@ -36,11 +48,11 @@ const Auth = () => {
         const token = res?.tokenId;
 
         try {
-            dispatch({type: 'AUTH', data: {result, token}});
+            dispatch({type: AUTH, data: {result, token}});
             navigate('/'); //redirects to homepage from login
 
         } catch (error) {
-
+            console.log(error);
         }
     }
 
@@ -62,7 +74,7 @@ const Auth = () => {
                             isSignedUp && (
                                 <>
                                 <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
-                                <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+                                <Input name="surname" label="Surname" handleChange={handleChange} half />
                                 </>
                             )
                         }
@@ -100,6 +112,6 @@ const Auth = () => {
 
         </Container>
     )
-}
+};
 
 export default Auth;
