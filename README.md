@@ -1,1 +1,1 @@
-This repository contains the contents of the CSC3132 Building Systems For People coursework.
+This repository contains the contents of the CSC3131 Building Systems For People coursework.
