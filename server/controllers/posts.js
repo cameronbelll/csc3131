@@ -19,7 +19,7 @@ export const getPosts = async (req, res) => //function is async as the below .fi
 export const createPost = async (req, res) =>
     {
         const post = req.body;
-        const newPost = new PostMessage(post); //create a new object of type PostMessage and pass it the post being requested
+        const newPost = new PostMessage({...post, creatorId: req.userId, createdAt: new Date().toISOString()}); //creates new post along with creator's ID and date of creation
 
         try {
             await newPost.save();
@@ -52,11 +52,20 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
     const {id} = req.params;
+    
+    if(!req.userId) return res.json({message: 'You are not authorised to complete this action.'});
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with this ID.');
 
     const post = await PostMessage.findById(id); //finds post by ID and commits to variable
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, {likeCount: post.likeCount + 1}, {new: true});
+    const index = post.likes.findIndex((id) => id === String(req.userId)); //this checks if the user has already liked the post
+    if (index === -1) { //if the user has not liked the post then their ID will not be found
+        post.likes.push(req.userId);
+    }
+    else { //if the current user has already liked the post...
+        post.likes = post.likes.filter((id) => id != String(req.userId)); //filters out the like from the current user 
+    }
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new: true});
 
     res.json(updatedPost);
 }

@@ -6,16 +6,15 @@ const postSchema = mongoose.Schema(
     //here we create a schema which specifies what all posts must have and the data types
     title: String,
     message: String,
-    creator: String,
+    name: String,
+    creatorId: String,
     tags: [String],
     selectedFile: String,
-    likeCount:
-    {
-        type: Number,
-        default: 0
+    likes: { //array of users who have liked the post
+        type: [String],
+        default: [],
     },
-    createdAt: 
-    {
+    createdAt: {
         type: Date,
         default: new Date()
     },
