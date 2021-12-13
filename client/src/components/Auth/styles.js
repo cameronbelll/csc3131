@@ -30,4 +30,5 @@ export default makeStyles((theme) => ({
   googleButton: {
     marginBottom: theme.spacing(2),
   },
+  toolbar: theme.mixins.toolbar,
 }));

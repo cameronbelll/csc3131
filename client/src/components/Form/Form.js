@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {TextField, Button, Typography, Paper} from '@material-ui/core';
+import React, {useState, useEffect } from 'react';
+import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import makeStyles from './style';
-import {createPost, updatePost} from '../../actions/posts';
-import {PROFILE} from '../../constants/actionTypes';
+import { createPost, updatePost } from '../../actions/posts';
+import { PROFILE } from '../../constants/actionTypes';
 
 //get current ID of post
 
@@ -50,8 +50,6 @@ const Form = ({currentId, setCurrentId}) => //creates the form for adding new ti
 
     return (
         <Paper className={classes.paper}>
-            <div className={classes.toolbar} />
-            <div className={classes.toolbar} />
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
             <Typography variant="h6">{currentId ? 'Edit tickets' : 'Add tickets'}</Typography>
             <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title:e.target.value})}></TextField> 

@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import {Provider} from 'react-redux'; //Provider keeps track of store (global state) which can now be accessed anywhere
-import {createStore, applyMiddleware, compose} from 'redux';
+import { Provider } from 'react-redux'; //Provider keeps track of store (global state) which can now be accessed anywhere
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 

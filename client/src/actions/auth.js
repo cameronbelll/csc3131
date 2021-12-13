@@ -1,5 +1,5 @@
 import * as api from '../api/index.js';
-import {AUTH} from '../constants/actionTypes';
+import { AUTH } from '../constants/actionTypes';
 
 export const signIn = (formData, navigate) => async (dispatch) => {
     try { //will send data to the backend so that it knows the user is trying to sign in

@@ -1,5 +1,5 @@
 //reducer for authentication
-import {PROFILE, AUTH, LOGOUT} from '../constants/actionTypes';
+import { PROFILE, AUTH, LOGOUT } from '../constants/actionTypes';
 
 
 const authReducer = (state = {authData: null}, action) => {

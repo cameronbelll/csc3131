@@ -1,5 +1,5 @@
 import axios from 'axios'; //used to make API calls
-import {PROFILE} from '../constants/actionTypes';
+import { PROFILE } from '../constants/actionTypes';
 
 const API = axios.create({baseURL: 'http://localhost:5000'}); //base URL pointing to backend
 
@@ -12,6 +12,7 @@ API.interceptors.request.use((req) => { //needed to send token back to backend s
 
 
 export const fetchPosts = () => API.get('/posts');
+export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`); //queries database for certain post via name or tags
 export const createPost = (newPost) => API.post('/posts', newPost); //callback function which sends new post to database
 export const updatePost = (id, updatedPost) => API.patch(`posts/${id}`, updatedPost); //uses URL and currentId as need to know which post to update 
 export const deletePost = (id) => API.delete(`posts/${id}`); //pass in URL and ID so it knows which post to delete and where from

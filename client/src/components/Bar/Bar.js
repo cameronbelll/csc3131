@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useNavigate, useLocation} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {AppBar, Typography, Toolbar, Avatar, Button} from '@material-ui/core';
+import React, {useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import decode from 'jwt-decode';
 import useStyles from './styles';
-import logo from '../../images/logo.png';
-import {PROFILE, LOGOUT} from '../../constants/actionTypes';
+import logo from '../../images/logo.jpg';
+import logoText from '../../images/logoText.png';
+import { PROFILE, LOGOUT } from '../../constants/actionTypes';
 
 const Bar = () => {
     const classes = useStyles();
@@ -33,11 +34,11 @@ const Bar = () => {
     }, [location]); //calling location sets user immediately after login
 
     return (
-    <AppBar className={classes.appBar} positon="static" style={{background: "#BA0F0F"}}>
-        <div className={classes.brandContainer}>
-            <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center" style={{color:"#000000"}}>TotalTix</Typography>
-            <img className={classes.image} src={logo} alt="Ronaldoooo" height="80" />
-        </div>
+    <AppBar className={classes.appBar} positon="sticky" style={{background: "#BA0F0F"}}>
+        <Link to="/" className={classes.brandContainer}>
+            <img src={logoText} alt="logotext" height="80px"/>
+            <img className={classes.image} src={logo} alt="logo" height="80px" />
+        </Link>
 
         <Toolbar className={classes.toolbar}>
             {user ? ( //block of code for if user is logged in; shows their avatar or a letter of their name as well as username

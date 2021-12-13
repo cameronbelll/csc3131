@@ -1,16 +1,16 @@
 //post component, imported into posts class
 //the code for an individual post
 import React from 'react';
-import {Card, CardActions, CardContent, CardMedia, Button, Typography} from '@material-ui/core';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment'; //used for showing time created
 import makeStyles from './style';
-import {useDispatch} from 'react-redux';
-import {deletePost, likePost} from'../../../actions/posts';
-import {PROFILE} from '../../../constants/actionTypes';
+import { useDispatch } from 'react-redux';
+import { deletePost, likePost } from'../../../actions/posts';
+import { PROFILE } from '../../../constants/actionTypes';
 
 const Post = ({post, setCurrentId}) => //creates the form for adding new tickets to the site
 {
@@ -32,14 +32,14 @@ const Post = ({post, setCurrentId}) => //creates the form for adding new tickets
       };
 
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card} raised elevation={10}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title}/>
             <div className={classes.overlay}>
                 <Typography variant="h6">{post.name}</Typography>
                 <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
             </div>
 
-            {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+            {(user?.result?.googleId === post?.creatorId || user?.result?._id === post?.creatorId) && (            
                 <div className={classes.overlay2}>
                     <Button style={{color: 'red'}} size="small" onClick={() => setCurrentId(post._id)} >
                         <MoreHorizIcon fontSize="large" />

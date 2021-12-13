@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
-import {GoogleLogin} from 'react-google-login';
-import {useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import {Avatar, Button, Paper, Grid, Typography, Container, TextField} from '@material-ui/core';
+import React, {useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Avatar, Button, Paper, Grid, Typography, Container, } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
-import {AUTH} from '../../constants/actionTypes';
-import {signIn, signUp} from '../../actions/auth';
+import { AUTH } from '../../constants/actionTypes';
+import { signIn, signUp } from '../../actions/auth';
 
-const initialState = {firstName: '', surname: '', email: '', password: '', confirmPassword: ''}; //sets all variables to be empty initially
+
+//const initialState = {firstName: '', surname: '', email: '', password: '', confirmPassword: ''}; //sets all variables to be empty initially
 
 const Auth = () => {
     const classes = useStyles();
@@ -56,13 +57,12 @@ const Auth = () => {
         }
     }
 
-    const googleFailure = (error) => {
-        console.log(error);
-        console.log("Sign in with Google failed. Please try again");
-    }
+    const googleFailure = () => alert("Sign in with Google failed. Please try again");
 
     return (
         <Container component="main" maxWidth="xs">
+            <div className={classes.toolbar} />
+            <div className={classes.toolbar} />
             <Paper className={classes.paper} elevation={3}>
                 <Avatar className={classes.avatar}> 
                     <LockOutlinedIcon />
@@ -70,7 +70,7 @@ const Auth = () => {
                 <Typography variant="h5">{isSignedUp ? 'Sign Up' : 'Sign In'}</Typography> 
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
-                        { //code for if current user is signed up; this is the for the sign up form
+                        { //code for if current user is not signed up; this is the for the sign up form
                             isSignedUp && (
                                 <>
                                 <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
