@@ -7,7 +7,11 @@ import PostMessage from '../models/postMessage.js';
 
 export const getPosts = async (req, res) => //function is async as the below .find() method takes time
     { //callback function to be executed whenever someone visits localhost:5000/
+        const {page} = req.query;
         try {
+            const LIMIT = 9; //number of posts per page
+            const startIndex = (Number(page) - 1) * LIMIT; //always gets start index of first post on any page
+            const totalPosts = await PostMessage.countDocuments({});
             const postMessages = await PostMessage.find(); //need await as finding something in a model is asynch so must make function so
             console.log(postMessages);
             res.status(200).json(postMessages); //returning status 200 means everything worked
@@ -15,6 +19,21 @@ export const getPosts = async (req, res) => //function is async as the below .fi
             res.status(404).json({message: error.message}); //returning status 404 means an error has been found
         }
     }; //needs to be exported so it can be used in posts.js in routes
+
+export const getPostsBySearch = async (req, res) => {
+    const { searchQuery, tags } = req.query;
+    
+    try {
+        const title = new RegExp(searchQuery, 'i'); //convert title of post into regular expression as easier for querying
+        //find all posts which match either title search or match at least one tag from tag array
+        const posts = await PostMessage.find({ $or: [ {title}, {tags: { $in: tags.split(',') } } ]}); //or means either find title or tags
+        
+        res.json({ data: posts });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+
+}
 
 export const createPost = async (req, res) =>
     {

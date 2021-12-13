@@ -1,4 +1,4 @@
-import jwt, {decode} from 'jsonwebtoken';
+import jwt, {decode } from 'jsonwebtoken';
 
 const auth = async (req, res, next) => {
     try { //must check if user is really who theys say they are; check if token is valid

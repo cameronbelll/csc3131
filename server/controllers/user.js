@@ -9,10 +9,10 @@ export const signIn = async (req, res) => {
 
     try {
         const existingUser = await User.findOne({email}); //checks if user exists in database
-        if (!existingUser) return res.status(404).json({message: "User does not exist. Sign up instead"});
+        if (!existingUser) return res.status(404).send({message: "User does not exist. Sign up instead"});
 
         const correctPassword = await bcrypt.compare(password, existingUser.password); //checks if password is correct compared to hash in database
-        if (!correctPassword) return res.status(400).json({messge: "Incorrect password."});
+        if (!correctPassword) return res.status(404).send({error: "Wrong Password."}); //res.status(400).json({message: "Incorrect password."});
 
         //code executes if user found in database
         const token = jwt.sign({email: existingUser.email, id: existingUser._id}, 'test', {expiresIn: "1h"}); //test is secret string; change later!
