@@ -4,7 +4,7 @@ const PostDetails = () => {
     console.log("POST Details");
     return (
         <div>
-            <h1 color="green">YOOOOOOOOOOOOOOO</h1>
+            <h1 color="green">Post Details</h1>
         </div>
     )
 }

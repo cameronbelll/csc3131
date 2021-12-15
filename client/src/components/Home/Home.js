@@ -14,7 +14,6 @@ function useQuery() { //for searching posts
 }
 
 const Home = () => {
-    //const classes = makeStyles();
     const dispatch = useDispatch(); //this is a hook
     const [currentId, setCurrentId] = useState(null); //set to null initially if ID is not selected
     const query = useQuery();
@@ -24,14 +23,11 @@ const Home = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]); //empty array for multiple tags
-
-    /*useEffect(() => {
-        dispatch(getPosts()); //when action is dispatched from here, goes to posts reducer which handles logic of fetching all posts
-    }, [currentId, dispatch]); //this is a successful dispatch */
-
+    
     const searchTickets = () => {
         if(search.trim() || tags) {
-            dispatch(getPostsBySearch({ search, tags: tags.join(',') })) //search is passed as a string but have to render tags array to a string to make dispatch easier
+            //search is passed as a string but have to render tags array to a string to make dispatch easier
+            dispatch(getPostsBySearch({ search, tags: tags.join(',') })) 
             navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
         } else {
             navigate('/'); //redirects as has searched for nothing
@@ -77,12 +73,14 @@ const Home = () => {
                                 variant="outlined"
                             />
 
-                            <Button onClick={searchTickets} className={classes.searchButton} color="primary" variant="contained">Search available tickets</Button>
+                            <Button onClick={searchTickets} className={classes.searchButton} color="primary" variant="contained">Search ticket posts</Button>
                         </AppBar>
                             <Form currentId={currentId} setCurrentId={setCurrentId}/>
-                            <Paper elevation={6}>
-                                <Pagination page={page}/>
-                            </Paper>
+                            {(!searchQuery && !tags.length) && ( //only paginates if not searching
+                                <Paper className={classes.pagination} elevation={6}>
+                                    <Pagination page={page}/>
+                                </Paper>
+                            )}
                         </Grid>
                     </Grid>
                 </Container>

@@ -9,9 +9,9 @@ import makeStyles from './style';
 const Posts = ({setCurrentId}) => //creates the form for adding new tickets to the site
 {
     const classes = makeStyles(); //with this all classes are imported, now can just do className={classes.something}
-    const posts = useSelector((state) => state.posts);
+    const {posts} = useSelector((state) => state.posts);
     return (
-        !posts.length ? <CircularProgress /> : ( //if all posts are not loaded present a loading wheel, else run code below
+        !posts?.length ? <CircularProgress /> : ( //if all posts are not loaded present a loading wheel, else run code below
             <Grid className={classes.container} container alignItems="stretch" spacing={2}> 
                 
                 {posts.map((post) => (

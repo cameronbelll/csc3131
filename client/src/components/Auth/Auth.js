@@ -10,9 +10,6 @@ import Icon from './icon';
 import { AUTH } from '../../constants/actionTypes';
 import { signIn, signUp } from '../../actions/auth';
 
-
-//const initialState = {firstName: '', surname: '', email: '', password: '', confirmPassword: ''}; //sets all variables to be empty initially
-
 const Auth = () => {
     const classes = useStyles();
     const [isSignedUp, setIsSignedUp] = useState(false); //state field which is used to flip the state of a boolean variable
