@@ -7,14 +7,15 @@ import PostMessage from '../models/postMessage.js';
 
 export const getPosts = async (req, res) => //function is async as the below .find() method takes time
     { //callback function to be executed whenever someone visits localhost:5000/
-        const {page} = req.query;
+        const { page } = req.query;
         try {
-            const LIMIT = 9; //number of posts per page
+            const LIMIT = 6; //number of posts per page
             const startIndex = (Number(page) - 1) * LIMIT; //always gets start index of first post on any page
             const totalPosts = await PostMessage.countDocuments({});
-            const postMessages = await PostMessage.find(); //need await as finding something in a model is asynch so must make function so
+            console.log(startIndex);
+            const postMessages = await PostMessage.find().sort({ id: -1 }).skip(startIndex).limit(LIMIT); //need await as finding something in a model is asynch so must make function so
             console.log(postMessages);
-            res.status(200).json(postMessages); //returning status 200 means everything worked
+            res.status(200).json({ data: postMessages, currentPage: Number(page), numberOfPages: Math.ceil(totalPosts/LIMIT) }); //returning status 200 means everything worked
         } catch (error) {
             res.status(404).json({message: error.message}); //returning status 404 means an error has been found
         }
@@ -38,7 +39,8 @@ export const getPostsBySearch = async (req, res) => {
 export const createPost = async (req, res) =>
     {
         const post = req.body;
-        const newPost = new PostMessage({...post, creatorId: req.userId, createdAt: new Date().toISOString()}); //creates new post along with creator's ID and date of creation
+        //creates new post along with creator's ID and date of creation
+        const newPost = new PostMessage({...post, creatorId: req.userId, createdAt: new Date().toISOString()}); 
 
         try {
             await newPost.save();
